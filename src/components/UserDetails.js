@@ -7,14 +7,17 @@ function UserDetails() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(true); // Ensure loading state is set at the start
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        setLoading(false);
+        setLoading(false); // Set loading to false after data is fetched
       })
-      .catch((error) => console.error("Error fetching user details:", error));
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+        setLoading(false); // Ensure loading is cleared even on error
+      });
   }, [id]);
 
   if (loading) {
