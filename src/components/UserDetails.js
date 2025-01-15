@@ -5,24 +5,38 @@ function UserDetails() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    setLoading(true); // Ensure loading state is set at the start
+    setLoading(true);
+    setError(false);
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        return response.json();
+      })
       .then((data) => {
+        console.log("Fetched user data:", data);
         setUser(data);
-        setLoading(false); 
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching user details:", error);
-        setLoading(false); 
+        setError(true);
+        setLoading(false);
       });
   }, [id]);
 
   if (loading) {
-  return <div>Loading...</div>;
-}
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading user data. Please try again later.</div>;
+  }
+
   return (
     <div>
       <h1>User Details</h1>
