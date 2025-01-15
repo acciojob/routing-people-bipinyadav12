@@ -12,22 +12,19 @@ function UserDetails() {
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       })
       .catch((error) => {
         console.error("Error fetching user details:", error);
-        setLoading(false); // Ensure loading is cleared even on error
+        setLoading(false); 
       });
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>
+      <h1>Loading...</h1>
+      </div>;
   }
-
-  if (!user) {
-    return <h1>User not found</h1>;
-  }
-
   return (
     <div>
       <h1>User Details</h1>
