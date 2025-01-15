@@ -18,12 +18,12 @@ function UserDetails() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched user data:", data);
+        
         setUser(data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching user details:", error);
+       
         setError(true);
         setLoading(false);
       });
