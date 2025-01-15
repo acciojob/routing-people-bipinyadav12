@@ -7,9 +7,9 @@ function UserDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
+ useEffect(() => {
+  setLoading(true); // Start loading state
+  setTimeout(() => { // Simulate a delay
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then((response) => {
         if (!response.ok) {
@@ -18,16 +18,16 @@ function UserDetails() {
         return response.json();
       })
       .then((data) => {
-        
         setUser(data);
-        setLoading(false);
+        setLoading(false); // End loading state
       })
       .catch((error) => {
-       
-        setError(true);
-        setLoading(false);
+        console.error("Error fetching user details:", error);
+        setLoading(false); // Handle errors
       });
-  }, [id]);
+  }, 2000); // Delay of 2 seconds
+}, [id]);
+
 
   if (loading) {
     return <div>Loading...</div>;
